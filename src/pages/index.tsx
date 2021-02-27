@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
+import axios from 'axios'
 
 import { CompletedChallenges } from "../components/CompletedChallenges"
 import { Countdown } from "../components/Countdown"
@@ -16,6 +17,8 @@ interface HomeProps {
   level: number
   currentExperience: number
   challengesCompleted: number
+  user: string
+  userName: string
 }
 
 export default function Home(props: HomeProps) {
@@ -24,6 +27,8 @@ export default function Home(props: HomeProps) {
       level={props.level}
       currentExperience={props.currentExperience}
       challengesCompleted={props.challengesCompleted}
+      user={props.user}
+      userName={props.userName}
     >
       <div className={styles.container}>
         <Head>
@@ -50,13 +55,23 @@ export default function Home(props: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async(ctx) => {
 
-  const { level, currentExperience, challengesCompleted } = ctx.req.cookies
+  let { level, currentExperience, challengesCompleted, user, userName } = ctx.req.cookies
+
+  if (user && !userName) {
+    axios.get(`https://api.github.com/users/${user}`).then((response) => {
+      userName = response.data
+    }).catch(() => {
+      userName = null
+    })
+  }
 
   return {
     props: {
       level: Number(level),
       currentExperience: Number(currentExperience),
-      challengesCompleted: Number(challengesCompleted)
+      challengesCompleted: Number(challengesCompleted),
+      user: user || null,
+      userName: userName || null
     }
   }
 }
