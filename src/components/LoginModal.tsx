@@ -18,13 +18,13 @@ export function LoginModal() {
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
-        <strong>Login</strong>
+        <img src="logo-full.svg" alt="Level Up"/>
         <p>Informe seu usuário no github: </p>
 
         <footer>
           <input onChange={event => setLogin(event.target.value)}></input>
           <button type="button" className={styles.loginButton} onClick={handleLoginButton}>
-            OK
+          <img src="icons/login.svg" alt="Login"/>
           </button>
         </footer>
       </div>

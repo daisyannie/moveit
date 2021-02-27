@@ -55,15 +55,7 @@ export default function Home(props: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async(ctx) => {
 
-  let { level, currentExperience, challengesCompleted, user, userName } = ctx.req.cookies
-
-  if (user && !userName) {
-    axios.get(`https://api.github.com/users/${user}`).then((response) => {
-      userName = response.data
-    }).catch(() => {
-      userName = null
-    })
-  }
+  const { level, currentExperience, challengesCompleted, user, userName } = ctx.req.cookies
 
   return {
     props: {
