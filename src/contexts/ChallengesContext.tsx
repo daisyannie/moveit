@@ -84,8 +84,6 @@ export function ChallengesProvider({ children, ...rest }: ChallengesProviderProp
   function saveLoginUser(user: string) {
     axios.get(`https://api.github.com/users/${user}`).then((response) => {
       setUserName(response.data.name)
-    }).catch((error) =>  {
-      console.error(error)
     })
     setUser(user)
   }

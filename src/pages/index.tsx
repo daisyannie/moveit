@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
-import axios from 'axios'
 
 import { CompletedChallenges } from "../components/CompletedChallenges"
 import { Countdown } from "../components/Countdown"
